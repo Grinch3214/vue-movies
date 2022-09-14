@@ -1,23 +1,32 @@
 <template>
   <div id="app">
-    <movies-list :list="moviesList" />
+		<poster-bg :posterProp="posterBackground" />
+    <movies-list :list="moviesList" @changePoster="onChangePoster"/>
   </div>
 </template>
 
 <script>
 import { mapActions, mapGetters } from 'vuex'
 import MoviesList from './components/MoviesList.vue'
+import PosterBg from './components/PosterBg.vue'
 
 export default {
   name: 'App',
   components: {
-    MoviesList
+		PosterBg,
+    MoviesList,
   },
+	data: () => ({
+		posterBackground: ''
+	}),
 	computed: {
 		...mapGetters('movies', ['moviesList'])
 	},
 	methods: {
-		...mapActions('movies', ['fetchMovies'])
+		...mapActions('movies', ['fetchMovies']),
+		onChangePoster(poster) {
+			this.posterBackground = poster;
+		}
 	}
 }
 </script>
