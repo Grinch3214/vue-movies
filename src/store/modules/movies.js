@@ -20,22 +20,27 @@ const moviesStore = {
 		moviesList: ({ movies }) => movies,
 		sliceIDs: ({ top250IDs }) => (from, to) => top250IDs.slice(from, to),
 		currentPage: ({ currentPage }) => currentPage,
-		moviesPerPage: ({ moviesPerPage }) => moviesPerPage
+		moviesPerPage: ({ moviesPerPage }) => moviesPerPage,
+		moviesLength: ({ top250IDs }) => Object.keys(top250IDs).length,
 	},
 	mutations: {
 		MOVIES(state, value) {
 			state.movies = value
-		}
+		},
+		CURRENT_PAGE(state, value) {
+			state.currentPage = value
+		},
 	},
 	actions: {
-		initMoviesStore: {
-			handler({ dispatch }) {
-				dispatch('fetchMovies')
-			},
-			root: true,
-		},
-		async fetchMovies({ getters, commit }) {
+		// initMoviesStore: {
+		// 	handler({ dispatch }) {
+		// 		dispatch('fetchMovies')
+		// 	},
+		// 	root: true,
+		// },
+		async fetchMovies({ getters, commit, dispatch }) {
 			try {
+				dispatch('toggleLoader', true, { root: true });
 				const { currentPage, moviesPerPage, sliceIDs } = getters;
 				const from = (currentPage * moviesPerPage) - moviesPerPage;
 				const to = currentPage * moviesPerPage;
@@ -43,11 +48,18 @@ const moviesStore = {
 				const requests = moviesToFetch.map((id) => axios.get(`/?i=${id}`));
 
 				const response = await Promise.all(requests);
+				console.log(response)
 				const movies = serializeResponse(response);
 				commit('MOVIES', movies);
 			} catch(error) {
 				console.log(error);
+			} finally {
+				dispatch('toggleLoader', false, { root: true })
 			}
+		},
+		changeCurrentPage({ commit, dispatch }, page) {
+			commit('CURRENT_PAGE', page);
+			dispatch('fetchMovies');
 		}
 	}
 };
