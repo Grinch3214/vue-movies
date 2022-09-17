@@ -2,6 +2,7 @@
   <div id="app">
 		<loader-vue />
 		<poster-bg :posterProp="posterBackground" />
+		<header-nav />
     <movies-list :list="moviesList" @changePoster="onChangePoster"/>
 		<movies-pagination 
 			:current-page="currentPage"
@@ -14,6 +15,7 @@
 
 <script>
 import { mapActions, mapGetters } from 'vuex'
+import HeaderNav from './components/HeaderNav.vue'
 import MoviesList from './components/MoviesList.vue'
 import PosterBg from './components/PosterBg.vue'
 import MoviesPagination from './components/MoviesPagination.vue'
@@ -23,6 +25,7 @@ export default {
   name: 'App',
   components: {
 		PosterBg,
+		HeaderNav,
     MoviesList,
 		MoviesPagination,
     LoaderVue
