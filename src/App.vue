@@ -1,6 +1,7 @@
 <template>
   <div id="app">
 		<loader-vue />
+		<app-notification />
 		<poster-bg :posterProp="posterBackground" />
 		<header-nav />
     <movies-list :list="moviesList" @changePoster="onChangePoster"/>
@@ -20,6 +21,7 @@ import MoviesList from './components/MoviesList.vue'
 import PosterBg from './components/PosterBg.vue'
 import MoviesPagination from './components/MoviesPagination.vue'
 import LoaderVue from './components/LoaderVue.vue'
+import AppNotification from './components/AppNotification.vue'
 
 export default {
   name: 'App',
@@ -28,7 +30,8 @@ export default {
 		HeaderNav,
     MoviesList,
 		MoviesPagination,
-    LoaderVue
+    LoaderVue,
+		AppNotification
   },
 	data: () => ({
 		posterBackground: ''

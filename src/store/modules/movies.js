@@ -89,7 +89,11 @@ const moviesStore = {
 
 				commit('MOVIES', movies);
 			} catch(error) {
-				console.log(error.message)
+				dispatch('showNotify', {
+					msg: error.message,
+					title: 'Error',
+					variant: 'danger'
+				}, { root: true })
 			} finally {
 				dispatch('toggleLoader', false, { root: true })
 			}
