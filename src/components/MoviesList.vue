@@ -8,6 +8,7 @@
 					:movie="movie"
 					@mouseover.native="onMouseOver(movie.Poster)"
 					@removeItem="onRemoveItem"
+					@showModal="onShowMovieInfo"
 				/>
 			</b-col>
 		</template>
@@ -15,6 +16,9 @@
 			<div>Empty list</div>
 		</template>
 	</b-row>
+	<b-modal :id="movieInfoModalInfo" size="xl" centered hide-header hide-footer>
+    <p class="my-4">{{ selectedMovie }}</p>
+  </b-modal>
 </b-container>
 </template>
 
@@ -31,6 +35,10 @@ export default {
 			default:() => ({})
 		}
 	},
+	data: () => ({
+		movieInfoModalInfo: 'movie-info',
+		selectedMovieID: ''
+	}),
 	computed: {
 		...mapGetters('movies', ['isSearch']),
 		isExist() {
@@ -38,6 +46,9 @@ export default {
 		},
 		listTitle() {
 			return this.isSearch ? 'Search result' : 'Best movies'
+		},
+		selectedMovie() {
+			return this.selectedMovieID ? this.list[this.selectedMovieID] : null
 		}
 	},
 	methods: {
@@ -63,6 +74,12 @@ export default {
 					title: 'Success'
 				})
 			}
+		},
+
+		onShowMovieInfo(id) {
+			console.log(id)
+			this.selectedMovieID = id;
+			this.$bvModal.show(this.movieInfoModalInfo);
 		}
 	}
 }
