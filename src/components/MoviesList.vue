@@ -16,18 +16,23 @@
 			<div>Empty list</div>
 		</template>
 	</b-row>
-	<b-modal :id="movieInfoModalInfo" size="xl" centered hide-header hide-footer>
-    <p class="my-4">{{ selectedMovie }}</p>
+	<b-modal body-class="movie-modal-body" :id="movieInfoModalInfo" size="xl" centered hide-header hide-footer>
+    <!-- <p class="my-4">{{ selectedMovie }}</p> -->
+		<movie-modal-info-content :movie="selectedMovie" />
   </b-modal>
 </b-container>
 </template>
 
 <script>
 import MovieItem from './MovieItem.vue';
+import MovieModalInfoContent from './MovieInfoModalContent.vue'
 import { mapActions, mapGetters } from 'vuex'
 
 export default {
-  components: { MovieItem },
+  components: {
+		MovieItem,
+		MovieModalInfoContent,
+		},
 	name: 'MoviesList',
 	props: {
 		list: {
@@ -91,5 +96,11 @@ export default {
 		margin-bottom: 20px;
 		text-align: center;
 		color: #fff;
+	}
+</style>
+
+<style>
+.movie-modal-body {
+		padding: 0;
 	}
 </style>
