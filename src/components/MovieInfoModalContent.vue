@@ -6,7 +6,7 @@
 			</h5>
 			<b-iconX class="close-icon" @click="closeModal" />
 		</header>
-		<div class="movie-info-content">
+		<div class="movie-info-content mt-2">
 			<b-row>
 				<b-col sm="4">
 					<div class="movie-poster-wrap">
@@ -25,6 +25,39 @@
 						show-value-max
 						no-border
 					/>
+					<p class="movie-description">
+						{{ movie.Plot }}
+					</p>
+					<div class="mt-3 mb-4">
+						<b-badge variant="success" class="mr-2">{{ movie.Year }}</b-badge>
+						<b-badge variant="success" class="mr-2">{{ movie.Runtime }}</b-badge>
+						<b-badge variant="success" class="mr-2">{{ movie.Genre }}</b-badge>
+						<b-badge variant="success" class="mr-2">{{ movie.Language }}</b-badge>
+					</div>
+					<table class="table small">
+						<tbody>
+							<tr>
+								<th>Production</th>
+								<td>{{ movie.Production }}</td>
+							</tr>
+							<tr>
+								<th>Country</th>
+								<td>{{ movie.Country }}</td>
+							</tr>
+							<tr>
+								<th>Writer</th>
+								<td>{{ movie.Writer }}</td>
+							</tr>
+							<tr>
+								<th>Actors</th>
+								<td>{{ movie.Actors }}</td>
+							</tr>
+							<tr>
+								<th>Awards</th>
+								<td>{{ movie.Awards }}</td>
+							</tr>
+						</tbody>
+					</table>
 				</b-col>
 			</b-row>
 		</div>
@@ -58,7 +91,7 @@ export default {
 	},
 	methods: {
 		closeModal() {
-			console.log('close')
+			this.$emit('closeModal')
 		}
 	}
 }
@@ -73,6 +106,8 @@ export default {
 	padding: 1rem;
 	background: linear-gradient(45deg, rgb(0, 3, 38) 0%, rgb(82,15,117) 100%);
 	color: #fff;
+	border-radius: 4px;
+	overflow: hidden;
 }
 .movie-header-title {
 	margin-bottom: 0;
@@ -103,5 +138,43 @@ export default {
 	font-size: 3.5rem;
 	font-weight: 300;
 	line-height: 1.2;
+}
+
+.movie-raiting {
+	padding: 0;
+}
+
+.movie-raiting:focus {
+	box-shadow: none;
+}
+
+.movie-raiting >>> .b-rating-star,
+.movie-raiting >>> .b-rating-value {
+	justify-content: flex-start;
+	flex-grow: 0!important;
+	font-size: 1.3rem;
+	font-weight: 300;
+	padding: 0;
+}
+
+.movie-raiting >>> .b-rating-star + .b-rating-star {
+	margin-left: 4px;
+}
+
+.movie-raiting >>> .b-rating-value {
+	margin-left: 10px;
+}
+
+.movie-raiting >>> .b-rating-star .b-rating-icon {
+	color: #ffc107;
+}
+.movie-description {
+	font-size: 1.25rem;
+	font-weight: 300;
+}
+
+.close-icon {
+	font-size: 24px;
+	cursor: pointer;
 }
 </style>

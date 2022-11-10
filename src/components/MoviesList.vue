@@ -18,7 +18,7 @@
 	</b-row>
 	<b-modal body-class="movie-modal-body" :id="movieInfoModalInfo" size="xl" centered hide-header hide-footer>
     <!-- <p class="my-4">{{ selectedMovie }}</p> -->
-		<movie-modal-info-content :movie="selectedMovie" />
+		<movie-modal-info-content v-if="selectedMovie" :movie="selectedMovie" @closeModal="onCloseModal"/>
   </b-modal>
 </b-container>
 </template>
@@ -85,6 +85,11 @@ export default {
 			console.log(id)
 			this.selectedMovieID = id;
 			this.$bvModal.show(this.movieInfoModalInfo);
+		},
+
+		onCloseModal() {
+			this.selectedMovieID = null;
+			this.$bvModal.hide(this.movieInfoModalInfo);
 		}
 	}
 }
